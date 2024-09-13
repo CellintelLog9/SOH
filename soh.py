@@ -73,8 +73,8 @@ resulting in 193 packs out of which 22 packs for validation with available custo
 
 ### Step 3: Data Transformation
 For each charging session, the following values were identified:
-•	Mean, median, minimum, maximum of voltage, current, maximum and minimum monomer temperatures, SOC%, and device date.
-•	Values for charge-discharge cycles, capacity on day zero from both cycler and BMS (calculated via coulomb counting), average current, and time duration of step 8 in the BMS.
+- Mean, median, minimum, maximum of voltage, current, maximum and minimum monomer temperatures, SOC%, and device date.
+- Values for charge-discharge cycles, capacity on day zero from both cycler and BMS (calculated via coulomb counting), average current, and time duration of step 8 in the BMS.
 
 """)
 
