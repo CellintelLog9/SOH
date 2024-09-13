@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-
+st.set_page_config(layout="wide")
 # Add custom CSS for box styling with box shadow and transparency
 st.markdown("""
     <style>
