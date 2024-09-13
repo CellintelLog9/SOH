@@ -1,4 +1,5 @@
 import streamlit as st
+import requests
 
 # Add custom CSS for box shadow and transparency
 st.markdown("""
@@ -34,11 +35,13 @@ After testing, the cycler data, BMS data, and acceptance criteria are reviewed. 
 """)
 st.markdown('</div>', unsafe_allow_html=True)
 
-# Add the plot as an HTML component from GitHub
-st.components.v1.html(
-    '<iframe src="https://github.com/CellintelLog9/SOH/blob/main/line_chart_current3.html" width="700" height="500"></iframe>',
-    height=500,
-)
+# Fetch and display the plot as an HTML component from GitHub
+url = "https://raw.githubusercontent.com/CellintelLog9/SOH/main/line_chart_current3.html"
+response = requests.get(url)
+if response.status_code == 200:
+    st.components.v1.html(response.text, height=500)
+else:
+    st.error("Failed to load the plot from GitHub.")
 
 # ML Model Development Process box
 st.markdown('<div class="box">', unsafe_allow_html=True)
@@ -56,7 +59,6 @@ st.markdown("""
 ### Step 3: Data Transformation
 - Calculated mean, median, min, max for voltage, current, SOC%, temperatures, and other features.
 - Derived capacity on day zero using both cycler and BMS data.
-
 """)
 st.markdown('</div>', unsafe_allow_html=True)
 
@@ -83,11 +85,13 @@ The model achieved an R² of 0.99986 with an MSE of 0.16147.
 """)
 st.markdown('</div>', unsafe_allow_html=True)
 
-# Add another plot from GitHub
-st.components.v1.html(
-    '<iframe src="https://github.com/CellintelLog9/SOH/blob/main/histogram_soc_change.html" width="700" height="500"></iframe>',
-    height=500,
-)
+# Fetch and display the histogram plot from GitHub
+url_histogram = "https://raw.githubusercontent.com/CellintelLog9/SOH/main/histogram_soc_change.html"
+response_histogram = requests.get(url_histogram)
+if response_histogram.status_code == 200:
+    st.components.v1.html(response_histogram.text, height=500)
+else:
+    st.error("Failed to load the histogram plot from GitHub.")
 
 # Solution box
 st.markdown('<div class="box">', unsafe_allow_html=True)
@@ -104,8 +108,10 @@ Separate models were trained for each category, improving accuracy and reducing 
 """)
 st.markdown('</div>', unsafe_allow_html=True)
 
-# Add final plot
-st.components.v1.html(
-    '<iframe src="https://github.com/CellintelLog9/SOH/blob/main/cycler_vs_predicted_capacity.html" width="700" height="500"></iframe>',
-    height=500,
-)
+# Fetch and display the final plot from GitHub
+url_final_plot = "https://raw.githubusercontent.com/CellintelLog9/SOH/main/cycler_vs_predicted_capacity.html"
+response_final_plot = requests.get(url_final_plot)
+if response_final_plot.status_code == 200:
+    st.components.v1.html(response_final_plot.text, height=500)
+else:
+    st.error("Failed to load the final plot from GitHub.")
