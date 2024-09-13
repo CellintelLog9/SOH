@@ -37,6 +37,7 @@ def create_box(header, content):
 
 # Manufacturing Process box
 create_box("Manufacturing Process", """
+
 1. **Initial Cell Cycling**: Each cell undergoes individual cycling to gather essential data, which is input into the cell acer system. Cells are categorized into appropriate buckets based on performance metrics.
 
 2. **Pack Assembly**: After categorization, cells are assembled into battery packs.
@@ -59,12 +60,13 @@ else:
     st.error("Failed to load the plot from GitHub.")
 
 # ML Model Development Process box
-create_box("ML Model Development Process", """
-### Step 1: Data Collection
+create_box("Development Process", """
+
+ Step 1: Data Collection
 - Data fetched from custom reports with charge-discharge cycles less than 30.
 - Outliers removed, leaving 22 packs for validation with custom reports, cycler, and BMS data.
 
-### Step 2: Data Preprocessing
+ Step 2: Data Preprocessing
 - Identified charging zones where current > 0 in Telematics data.
 - Sorted data by datetime for each Telematics ID and assigned unique numbers to each charging session.
 - Joined custom reports with cycler and BMS files, generated simultaneously during pack testing.
@@ -75,7 +77,8 @@ For each session, mean, median, min, and max were calculated for voltage, curren
 
 # Model Training Approaches box
 create_box("Model Training Approaches", """
-### 1st Approach:
+ 1st Approach:
+ 
 - **Features**: Mean, median, min, max for voltage, current, temperatures, and SOC%.
 - **Target**: Pack cycler capacity.
 - **Result**: No significant correlation between input features and cycler capacity.
@@ -101,7 +104,11 @@ A new set of features was added: SOC change (SOC percent max – SOC percent min
 | Capacity Added         | 0.875162     |
 | Session Duration       | 0.786534     |
 
-This approach achieved an **R²** of 0.99986 with an **MSE** of 0.16147. The predicted value was extrapolated to match cycler capacity using: `predicted capacity * 100 / SOC change`. However, the model showed a ~2 Ah difference between day 0 and predicted capacity due to smaller SOC changes in many sessions, resulting in imbalanced data.
+This approach achieved an **R²** of 0.99986 with an **MSE** of 0.16147.
+
+The predicted value was extrapolated to match cycler capacity using: `predicted capacity * 100 / SOC change`. However, 
+the model showed a ~2 Ah difference between day 0 and predicted capacity due to smaller SOC changes in many sessions, 
+resulting in imbalanced data (SoC change distribution in below plot).
 """)
 
 # Fetch and display the histogram plot from GitHub
