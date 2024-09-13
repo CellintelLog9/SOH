@@ -48,7 +48,7 @@ create_box("Manufacturing Process", """
     - **8k Pack**: The BMS is attached inside the pack, with cut-off voltages between 2.7V (max) and 1.7V (min).
     - **2k Pack**: The BMS is housed in the ICC kit, with lower-end cut-off voltage between 2.7V (max) and 1.95V (min).
 
-The cycler and BMS data are reviewed, and the true capacity is derived from the cycler data. However, discrepancies exist between cycler and BMS capacities, mainly due to current calibration issues and power cuts. The BMS reports higher current values than the cycler (see Current (I) plot below).
+The cycler and BMS data are reviewed, and the true capacity is derived from the cycler data. However, discrepancies exist between cycler and BMS capacities, mainly due to current calibration issues and power cuts. The BMS reports higher current values than the cycler (Current (I) plot below).
 """)
 
 # Fetch and display the plot from GitHub
