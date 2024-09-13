@@ -48,7 +48,7 @@ create_box("Manufacturing Process", """
     - **8k Pack**: The BMS is attached inside the battery pack. The testing process shows the actual capacity in the pack cycler data, with cut-off voltages set between 2.7V (max) and 1.7V (min).
     - **2k Pack**: The BMS is housed inside the ICC kit, with the lower-end cut-off voltage set between 2.7V (max) and 1.95V (min).
 
-After testing, the cycler data, BMS data, and acceptance criteria are reviewed. The true capacity is derived from the cycler data, while the BMS data also provides capacity values using coulomb counting.
+Following the testing, the cycler data, BMS data, and acceptance criteria are reviewed. The true capacity is derived from the cycler data, while the BMS data can also provides capacity values using coulomb counting by filtering the BMS data using Timestamp of cycler file (Plot Below of Current (I) data between cycler and BMS ). However, there is a noticeable difference between the cycler and BMS capacities, primarily due to current calibration discrepancies and power cut, with the BMS reporting larger current values compared to the cycler.
 """)
 
 # Fetch and display the plot as an HTML component from GitHub
@@ -68,11 +68,14 @@ create_box("ML Model Development Process", """
 
 ### Step 2: Data Preprocessing
 - Identified charging zones where current > 0 in the Telematics data.
-- Joined custom reports with cycler and BMS data.
+-Sorted data based on the datetime for each telematics ID and assigned a unique number to each charging session.
+-Joined the custom report with capacity data from cycler files and the average current, timestamp, and capacity data from BMS files (BMS and cycler files are generated simultaneously during pack testing).
 
 ### Step 3: Data Transformation
-- Calculated mean, median, min, max for voltage, current, SOC%, temperatures, and other features.
-- Derived capacity on day zero using both cycler and BMS data.
+For each charging session, the following values were identified:
+- Mean, median, minimum, maximum of voltage, current, maximum and minimum monomer temperatures, SOC%, and device date.
+- Values for charge-discharge cycles, capacity on day zero from both cycler and BMS (calculated via coulomb counting), average current, and time duration of step 8 in the BMS.
+
 """)
 
 
@@ -82,9 +85,30 @@ create_box("Model Training Approaches", """
 - Features: Mean, median, min, max for voltage, current, temperatures, and SOC%.
 - Target: Pack cycler capacity.
 - Result: No significant correlation was identified between input features and cycler capacity.
+- capacity_first                    1.000000
+- BM_BattCurrrent_std               0.039267
+- BM_SocPercent_max                -0.001158
+- BM_BattVoltage_min               -0.005754
+- Soc Change 			-0.001259
+- session_duration                 -0.011942
+
 """)
 
 
+
+    
+create_box("Model Training Approaches", """
+### Second Approach:
+A new set of features was added, including SOC change (Calculated using SOC percent maximum – SOC percent minimum value) for each charging zone, expected capacity in SOC change (capacity * SOC change / 100), and capacity added per zone. Instead of predicting the actual cycler capacity, the model predicted the expected capacity in SOC change, which showed high correlation with the features.
+Correlation of expected_capacity_in_soc_change:
+•	SOC change: 0.999890
+•	BM_BattVoltage_std: 0.899755
+•	Capacity added: 0.875162
+•	Session duration: 0.786534
+Using this approach, the model achieved an R² of 0.99986 with an MSE of 0.16147. The predicted value was then extrapolated to the actual predicted capacity (to match cycler capacity) using: (predicted capacity * 100 / change in SOC) (considering 100% soc). 
+Last iteration Results discussed in last meeting: 
+The model showed a difference of approximately 2 Ah between the day 0 capacity and the predicted capacity. This was attributed to smaller SOC changes during some charging sessions (with 80% of selected vehicles showing less than 20% SOC change). The model struggled with imbalanced data, penalizing infrequent values 
+""")
 # Fetch and display the histogram plot from GitHub
 url_histogram = "https://raw.githubusercontent.com/CellintelLog9/SOH/main/histogram_soc_change.html"
 response_histogram = requests.get(url_histogram)
@@ -92,8 +116,6 @@ if response_histogram.status_code == 200:
     st.components.v1.html(response_histogram.text, height=500)
 else:
     st.error("Failed to load the histogram plot from GitHub.")
-
-
 # Solution box
 create_box("Solution", """
 To improve accuracy, the dataset was segregated into three categories based on SOC change:
