@@ -11,6 +11,14 @@ st.markdown("""
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
+    .box-header {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .box-content {
+        font-size: 1rem;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -20,10 +28,12 @@ st.title("Project Presentation")
 
 # Function to create a box with content
 def create_box(header, content):
-    st.markdown('<div class="box">', unsafe_allow_html=True)  # Opening box div
-    st.subheader(header)
-    st.markdown(content)
-    st.markdown('</div>', unsafe_allow_html=True)  # Closing box div
+    st.markdown(f"""
+    <div class="box">
+        <div class="box-header">{header}</div>
+        <div class="box-content">{content}</div>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 # Manufacturing Process box
@@ -40,7 +50,6 @@ create_box("Manufacturing Process", """
 
 After testing, the cycler data, BMS data, and acceptance criteria are reviewed. The true capacity is derived from the cycler data, while the BMS data also provides capacity values using coulomb counting.
 """)
-
 
 # Fetch and display the plot as an HTML component from GitHub
 url = "https://raw.githubusercontent.com/CellintelLog9/SOH/main/line_chart_current3.html"
