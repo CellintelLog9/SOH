@@ -23,7 +23,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # Title of the presentation app
-st.title("Project Presentation")
+st.title("Project Update")
 
 # Function to create a box with content
 def create_box(header, content):
