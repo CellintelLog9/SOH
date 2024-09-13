@@ -72,6 +72,13 @@ st.markdown("""
 - Target: Pack cycler capacity.
 - Result: No significant correlation was identified between input features and cycler capacity.
 
+# Fetch and display the histogram plot from GitHub
+url_histogram = "https://raw.githubusercontent.com/CellintelLog9/SOH/main/histogram_soc_change.html"
+response_histogram = requests.get(url_histogram)
+if response_histogram.status_code == 200:
+    st.components.v1.html(response_histogram.text, height=500)
+else:
+    st.error("Failed to load the histogram plot from GitHub.")
 ### 2nd Approach:
 - New features such as SOC change and capacity added per zone were added.
 - The model predicted expected capacity in SOC change, which showed a high correlation with features.
@@ -85,13 +92,7 @@ The model achieved an R² of 0.99986 with an MSE of 0.16147.
 """)
 st.markdown('</div>', unsafe_allow_html=True)
 
-# Fetch and display the histogram plot from GitHub
-url_histogram = "https://raw.githubusercontent.com/CellintelLog9/SOH/main/histogram_soc_change.html"
-response_histogram = requests.get(url_histogram)
-if response_histogram.status_code == 200:
-    st.components.v1.html(response_histogram.text, height=500)
-else:
-    st.error("Failed to load the histogram plot from GitHub.")
+
 
 # Solution box
 st.markdown('<div class="box">', unsafe_allow_html=True)
