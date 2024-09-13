@@ -138,7 +138,7 @@ This improved the accuracy, reducing the difference to < 1 Ah.
 
 
 create_box("Next Step", """
-- The next step will be validating the model on Bosch's vehicle data and adding regularization by considering all charging sessions. We will observe how the pack capacity has changed over time
+- The next step will be validating the model on Bosch's vehicle data with regularization by considering all charging sessions and will observe how the pack capacity has changed over time
 """)
 
 
