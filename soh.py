@@ -130,3 +130,12 @@ if response_final_plot.status_code == 200:
     st.components.v1.html(response_final_plot.text, height=500)
 else:
     st.error("Failed to load the final plot from GitHub.")
+
+
+# Fetch and display the final plot from GitHub
+url_final_plot = "https://raw.githubusercontent.com/CellintelLog9/SOH/main/difference_between_cycler_and_predicted_capacity.html"
+response_final_plot = requests.get(url_final_plot)
+if response_final_plot.status_code == 200:
+    st.components.v1.html(response_final_plot.text, height=500)
+else:
+    st.error("Failed to load the final plot from GitHub.")
