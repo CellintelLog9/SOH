@@ -17,10 +17,17 @@ st.markdown("""
 # Title of the presentation app
 st.title("Project Presentation")
 
+
+# Function to create a box with content
+def create_box(header, content):
+    st.markdown('<div class="box">', unsafe_allow_html=True)  # Opening box div
+    st.subheader(header)
+    st.markdown(content)
+    st.markdown('</div>', unsafe_allow_html=True)  # Closing box div
+
+
 # Manufacturing Process box
-st.markdown('<div class="box">', unsafe_allow_html=True)  # Opening box div
-st.subheader("Manufacturing Process")
-st.markdown("""
+create_box("Manufacturing Process", """
 1. **Initial Cell Cycling**: Each cell undergoes an individual cycling process to gather essential data. This data is input into the cell acer system, which categorizes cells into appropriate buckets based on their performance metrics.
 
 2. **Pack Assembly**: After categorization, the cells are assembled into battery packs.
@@ -33,7 +40,7 @@ st.markdown("""
 
 After testing, the cycler data, BMS data, and acceptance criteria are reviewed. The true capacity is derived from the cycler data, while the BMS data also provides capacity values using coulomb counting.
 """)
-st.markdown('</div>', unsafe_allow_html=True)  # Closing box div
+
 
 # Fetch and display the plot as an HTML component from GitHub
 url = "https://raw.githubusercontent.com/CellintelLog9/SOH/main/line_chart_current3.html"
@@ -43,11 +50,9 @@ if response.status_code == 200:
 else:
     st.error("Failed to load the plot from GitHub.")
 
-# ML Model Development Process box
-st.markdown('<div class="box">', unsafe_allow_html=True)  # Opening box div
-st.subheader("ML Model Development Process")
 
-st.markdown("""
+# ML Model Development Process box
+create_box("ML Model Development Process", """
 ### Step 1: Data Collection
 - Data was fetched from custom reports where the charge-discharge cycle was less than 30.
 - 193 packs were analyzed, and outliers were removed, leaving 22 packs for validation with custom reports, cycler, and BMS data.
@@ -60,19 +65,16 @@ st.markdown("""
 - Calculated mean, median, min, max for voltage, current, SOC%, temperatures, and other features.
 - Derived capacity on day zero using both cycler and BMS data.
 """)
-st.markdown('</div>', unsafe_allow_html=True)  # Closing box div
+
 
 # Model Training Approaches box
-st.markdown('<div class="box">', unsafe_allow_html=True)  # Opening box div
-st.subheader("Model Training Approaches")
-
-st.markdown("""
+create_box("Model Training Approaches", """
 ### 1st Approach:
 - Features: Mean, median, min, max for voltage, current, temperatures, and SOC%.
 - Target: Pack cycler capacity.
 - Result: No significant correlation was identified between input features and cycler capacity.
 """)
-st.markdown('</div>', unsafe_allow_html=True)  # Closing box div
+
 
 # Fetch and display the histogram plot from GitHub
 url_histogram = "https://raw.githubusercontent.com/CellintelLog9/SOH/main/histogram_soc_change.html"
@@ -82,11 +84,9 @@ if response_histogram.status_code == 200:
 else:
     st.error("Failed to load the histogram plot from GitHub.")
 
-# Solution box
-st.markdown('<div class="box">', unsafe_allow_html=True)  # Opening box div
-st.subheader("Solution")
 
-st.markdown("""
+# Solution box
+create_box("Solution", """
 To improve accuracy, the dataset was segregated into three categories based on SOC change:
 
 - **Category 1**: SOC Change 0-15
@@ -95,7 +95,7 @@ To improve accuracy, the dataset was segregated into three categories based on S
 
 Separate models were trained for each category, improving accuracy and reducing the difference to < 1 Ah.
 """)
-st.markdown('</div>', unsafe_allow_html=True)  # Closing box div
+
 
 # Fetch and display the final plot from GitHub
 url_final_plot = "https://raw.githubusercontent.com/CellintelLog9/SOH/main/cycler_vs_predicted_capacity.html"
