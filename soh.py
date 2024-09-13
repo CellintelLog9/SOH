@@ -63,8 +63,8 @@ else:
 create_box("Development Process", """
 
  Step 1: Data Collection
-- Data fetched from custom reports with charge-discharge cycles less than 30.
-- Outliers removed, leaving 22 packs for validation with custom reports, cycler, and BMS data.
+Data was fetched from custom reports where the charge-discharge cycle was less than 30. The telematics ID was mapped to the corresponding battery number, and outliers were removed, 
+resulting in 193 packs out of which 22 packs for validation with available custom reports, cycler, and BMS data
 
  Step 2: Data Preprocessing
 - Identified charging zones where current > 0 in Telematics data.
@@ -72,7 +72,10 @@ create_box("Development Process", """
 - Joined custom reports with cycler and BMS files, generated simultaneously during pack testing.
 
 ### Step 3: Data Transformation
-For each session, mean, median, min, and max were calculated for voltage, current, monomer temperatures, SOC%, and device date. Capacities from both cycler and BMS were derived for day 0 using coulomb counting.
+For each charging session, the following values were identified:
+•	Mean, median, minimum, maximum of voltage, current, maximum and minimum monomer temperatures, SOC%, and device date.
+•	Values for charge-discharge cycles, capacity on day zero from both cycler and BMS (calculated via coulomb counting), average current, and time duration of step 8 in the BMS.
+
 """)
 
 # Model Training Approaches box
