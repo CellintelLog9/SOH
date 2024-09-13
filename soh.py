@@ -34,6 +34,12 @@ After testing, the cycler data, BMS data, and acceptance criteria are reviewed. 
 """)
 st.markdown('</div>', unsafe_allow_html=True)
 
+# Add the plot as an HTML component from GitHub
+st.components.v1.html(
+    '<iframe src="https://github.com/CellintelLog9/SOH/blob/main/line_chart_current3.html" width="700" height="500"></iframe>',
+    height=500,
+)
+
 # ML Model Development Process box
 st.markdown('<div class="box">', unsafe_allow_html=True)
 st.subheader("ML Model Development Process")
@@ -77,6 +83,12 @@ The model achieved an R² of 0.99986 with an MSE of 0.16147.
 """)
 st.markdown('</div>', unsafe_allow_html=True)
 
+# Add another plot from GitHub
+st.components.v1.html(
+    '<iframe src="https://github.com/CellintelLog9/SOH/blob/main/histogram_soc_change.html" width="700" height="500"></iframe>',
+    height=500,
+)
+
 # Solution box
 st.markdown('<div class="box">', unsafe_allow_html=True)
 st.subheader("Solution")
@@ -92,3 +104,8 @@ Separate models were trained for each category, improving accuracy and reducing 
 """)
 st.markdown('</div>', unsafe_allow_html=True)
 
+# Add final plot
+st.components.v1.html(
+    '<iframe src="https://github.com/CellintelLog9/SOH/blob/main/cycler_vs_predicted_capacity.html" width="700" height="500"></iframe>',
+    height=500,
+)
