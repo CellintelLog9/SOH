@@ -123,7 +123,7 @@ else:
     st.error("Failed to load the histogram plot from GitHub.")
 
 # Solution box
-create_box("Solution", """
+create_box("Solution (Three Model Approach)", """
 To address this, the dataset was segregated into three categories based on SOC change and adding transformation on minorities 
 and adding one more hidden layer along with increased number of neurons and epoch.
 
