@@ -124,13 +124,12 @@ else:
 
 # Solution box
 create_box("Solution", """
-To improve accuracy, the dataset was categorized based on SOC change:
-
+To address this, the dataset was segregated into three categories based on SOC change and adding transformation on minorities and adding one more hidden layer along with increased number of neurons and epoch:
 - **Category 1**: SOC Change 0-15
 - **Category 2**: SOC Change 15-30
 - **Category 3**: SOC Change > 30
+Separate models were trained for each category and their results were merged. This improved the accuracy, reducing the difference to < 1 Ah
 
-Separate models were trained for each category, reducing the difference to < 1 Ah.
 """)
 
 
