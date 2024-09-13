@@ -133,6 +133,12 @@ To improve accuracy, the dataset was categorized based on SOC change:
 Separate models were trained for each category, reducing the difference to < 1 Ah.
 """)
 
+
+create_box("Next Step", """
+- The next step will be validating the model on Bosch's vehicle data and adding regularization by considering all charging sessions. We will observe how the pack capacity has changed over time
+""")
+
+
 # Fetch and display the final plot from GitHub
 url_final_plot = "https://raw.githubusercontent.com/CellintelLog9/SOH/main/cycler_vs_predicted_capacity.html"
 response_final_plot = requests.get(url_final_plot)
